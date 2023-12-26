@@ -1,32 +1,34 @@
 [
   {
     "title": "Link",
-
-    "contract": "0x0000000"
+    "contract": "0x0000000",
+    "desc": ["Album • Hoang Thuy Linh • 2022", "9 songs • 30 minutes"],
+    "track": [
+      "Gieo Quẻ (feat. Đen)",
+      "See Tình",
+      "Lúc Thấy Lúc Không",
+      "Bắt Vía (feat. Wren Evans & Mew Amazing)",
+      "không một bài hát nào có thể diễn tả cảm xúc của em lúc này. (feat. Thanh Bui)",
+      "Bo Xì Bo",
+      "Trưởng Nữ Chạy Trốn",
+      "Đánh Đố (feat. Thanh Lam & Tung Duong)",
+      "Hạ Phỏm"
+    ]
   },
   {
     "title": "Hoàng",
-
-    "contract": "0x0000000"
-  },
-  {
-    "title": "Link",
-
-    "contract": "0x0000000"
-  },
-  {
-    "title": "Hoàng",
-
-    "contract": "0x0000000"
-  },
-  {
-    "title": "Link",
-    "image": "../assets/image/artist.png",
-    "contract": "0x0000000"
-  },
-  {
-    "title": "Link",
-    "image": "../assets/image/artist.png",
-    "contract": "0x0000000"
+    "contract": "0x0000000",
+    "desc": ["Album • Hoang Thuy Linh • 2019", " 9 songs • 26 minutes"],
+    "track": [
+      "Khoi Dau",
+      "De Mi Noi Cho Ma Nghe",
+      "Duyen Am",
+      "Em Day Chang Phai Thuy Kieu",
+      "Lam Moi Toi Ngoi Khong",
+      "Keo Ca Keo Ket",
+      "Tu Phu",
+      "Ke Cap Gap Ba Gia (feat. BINZ)",
+      "Giai Ket"
+    ]
   }
 ]

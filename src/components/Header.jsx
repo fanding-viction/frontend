@@ -1,24 +1,27 @@
 import Web3 from "web3";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { AppContext } from "../App";
 
 import { MdAlbum } from "react-icons/md";
 import { BiWallet } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 
 const web3 = new Web3("https://rpc-testnet.viction.xyz");
+
 const Header = ({ account, setAccount }) => {
-  const [balance, setBalance] = useState();
+  const { balance, setBalance } = useContext(AppContext);
+  // const [balance, setBalance] = useState();
 
   const getBalance = async () => {
-    try {
-      const response = await web3.eth.getBalance(account);
-
-      setBalance(response / 10 ** 18);
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   const response = await web3.eth.getBalance(account);
+    //   setBalance(response / 10 ** 18);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    setBalance(15);
   };
 
   const onClickAccount = async () => {

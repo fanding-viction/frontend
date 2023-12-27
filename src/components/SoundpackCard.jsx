@@ -1,12 +1,30 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../App";
+
 import SoundpackModal from "./SoundpackModal";
 import { FaCircleCheck } from "react-icons/fa6";
 const SoundpackCard = ({ title, desc, track }) => {
-  const { balance, setBalance } = useContext(AppContext);
+  const { balance, setBalance, account, web3, contract } =
+    useContext(AppContext);
 
   const [isSoundpackOpen, setIsSoundpackOpen] = useState(false);
   const [isCompleteOpen, setIsCompleteOpen] = useState(false);
+
+  //------------------
+
+  const buyNft = async () => {
+    try {
+      if (!contract || !account || !web3) return;
+      const response = await contract.methods
+        .buyAlbum(1)
+        .send({ from: account });
+
+      console.log("goood", response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  //-----------------
 
   const toggleSoundpackModal = () => {
     setIsSoundpackOpen(!isSoundpackOpen);
@@ -15,12 +33,24 @@ const SoundpackCard = ({ title, desc, track }) => {
   const toggleCompleteModal = () => {
     setIsCompleteOpen(!isCompleteOpen);
   };
+
   const allClosed = () => {
     setIsSoundpackOpen(false);
     setIsCompleteOpen(false);
-    setBalance(5);
   };
 
+  const getBalance = async () => {
+    try {
+      const response = await web3.eth.getBalance(account);
+      setBalance(response / 10 ** 18);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getBalance();
+  }, [isCompleteOpen]);
   return (
     <>
       <div
@@ -84,7 +114,10 @@ const SoundpackCard = ({ title, desc, track }) => {
               <div className=" my-4 px-12">
                 <button
                   className="w-full p-2.5 text-white bg-black rounded-md outline-none"
-                  onClick={toggleCompleteModal}
+                  onClick={() => {
+                    toggleCompleteModal();
+                    buyNft();
+                  }}
                 >
                   Buy
                 </button>

@@ -1,4 +1,3 @@
-import Web3 from "web3";
 import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -8,20 +7,17 @@ import { MdAlbum } from "react-icons/md";
 import { BiWallet } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 
-const web3 = new Web3("https://rpc-testnet.viction.xyz");
-
-const Header = ({ account, setAccount }) => {
-  const { balance, setBalance } = useContext(AppContext);
-  // const [balance, setBalance] = useState();
+const Header = () => {
+  const { balance, setBalance, web3, account, setAccount } =
+    useContext(AppContext);
 
   const getBalance = async () => {
-    // try {
-    //   const response = await web3.eth.getBalance(account);
-    //   setBalance(response / 10 ** 18);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    setBalance(15);
+    try {
+      const response = await web3.eth.getBalance(account);
+      setBalance(response / 10 ** 18);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const onClickAccount = async () => {
@@ -33,6 +29,7 @@ const Header = ({ account, setAccount }) => {
       setAccount(accounts[0]);
     } catch (error) {
       console.error(error);
+      alert("Login failed");
     }
   };
 
@@ -50,7 +47,7 @@ const Header = ({ account, setAccount }) => {
       </Link>
       <div className="flex items-center">
         {account && balance && (
-          <div className="flex text-gray-400 text-sm">{balance} CUSD</div>
+          <div className="flex text-gray-400 text-sm">{balance} VIC</div>
         )}
         {account ? (
           <div className="flex items-center p-2 bg-gray-800 rounded-full ml-4">

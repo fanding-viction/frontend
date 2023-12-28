@@ -1,33 +1,42 @@
-import { useContext, useEffect, useState } from "react";
-import CompleteModal from "./CompleteModal";
-import { AppContext } from "../App";
+import { useContext } from "react";
 
-const SoundpackModal = ({ title, desc, track }) => {
+import { AppContext } from "../App";
+import CompleteModal from "./CompleteModal";
+
+const SoundpackModal = ({
+  title,
+  desc,
+  track,
+  toggleSoundpackModal,
+  setIsSoundpackOpen,
+}) => {
   const {
-    isSoundpackOpen,
-    setIsSoundpackOpen,
+    setBalance,
+    account,
+    web3,
+    contract,
     isCompleteOpen,
-    setIsCompleteOpen,
+    toggleCompleteModal,
   } = useContext(AppContext);
 
-  const toggleSoundpackModal = () => {
-    setIsSoundpackOpen(!isSoundpackOpen);
-  };
-  const toggleCompleteOpen = () => {
-    setIsCompleteOpen(!isCompleteOpen);
-  };
-  const handleBuy = () => {
-    //contract 연결
-    //     if (!contract) return;
-    //     const response = await contract.methods.totalSupply().call();
-    setIsCompleteOpen(!isCompleteOpen);
+  const buyNft = async () => {
+    try {
+      if (!contract || !account || !web3) return;
+      const response = await contract.methods
+        .buyAlbum(1)
+        .send({ from: account });
+      console.log("goood", response);
+    } catch (error) {
+      setBalance(10000);
+      console.error(error);
+    }
   };
 
   return (
-    <div className="fixed inset-0 z-10 overflow-y-auto">
+    <div className="fixed inset-0 z-10 overflow-y-auto ">
       <div className="fixed inset-0 w-full h-full bg-gray-900 opacity-50"></div>
-      <div className="flex items-center min-h-screen px-4 py-8">
-        <div className="relative w-full max-w-md mx-auto bg-white rounded-md shadow-lg">
+      <div className="flex items-center px-4 min-h-screen py-8">
+        <div className="relative max-w-md mx-auto bg-white rounded-md">
           <div className="flex justify-end w-full ">
             <button
               onClick={toggleSoundpackModal}
@@ -69,14 +78,19 @@ const SoundpackModal = ({ title, desc, track }) => {
           <div className=" my-4 px-12">
             <button
               className="w-full p-2.5 text-white bg-black rounded-md outline-none"
-              onClick={toggleCompleteOpen}
+              onClick={() => {
+                buyNft();
+                toggleCompleteModal();
+              }}
             >
               Buy
             </button>
           </div>
         </div>
+        {isCompleteOpen && (
+          <CompleteModal setIsSoundpackOpen={setIsSoundpackOpen} />
+        )}
       </div>
-      {isCompleteOpen && <CompleteModal />}
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import SoundpackCard from "./SoundpackCard";
 import soundpackData from "../db/soundpack.json";
+import SoundpackCard from "./SoundpackCard";
 
 const Soundpacks = () => {
   return (
@@ -15,13 +15,14 @@ const Soundpacks = () => {
         {soundpackData ? (
           soundpackData.map((v, i) => {
             return (
-              <SoundpackCard
-                key={i}
-                track={v.track}
-                title={v.title}
-                image={v.image}
-                desc={v.desc}
-              />
+              <>
+                <SoundpackCard
+                  key={i}
+                  track={v.track}
+                  title={v.title}
+                  desc={v.desc}
+                />
+              </>
             );
           })
         ) : (

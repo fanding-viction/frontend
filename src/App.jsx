@@ -15,8 +15,12 @@ function App() {
 
   const [account, setAccount] = useState("");
   const [balance, setBalance] = useState();
-  const [isSoundpackOpen, setIsSoundpackOpen] = useState(false);
   const [isCompleteOpen, setIsCompleteOpen] = useState(false);
+
+  const toggleCompleteModal = () => {
+    setIsCompleteOpen(!isCompleteOpen);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -26,10 +30,9 @@ function App() {
         setAccount,
         balance,
         setBalance,
-        isSoundpackOpen,
-        setIsSoundpackOpen,
         isCompleteOpen,
         setIsCompleteOpen,
+        toggleCompleteModal,
       }}
     >
       <BrowserRouter>
